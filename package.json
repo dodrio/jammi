@@ -1,0 +1,29 @@
+{
+  "name": "jammi",
+  "version": "0.1.0",
+  "description": "Simple solutions of lucky draw.",
+  "license": "MIT",
+  "repository": "m31271n/jammi",
+  "author": {
+    "name": "m31271n",
+    "email": "m31271n@gmail.com",
+    "url": "index.m31271n.com"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "test": "standard && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "standard": "^10.0.2"
+  }
+}
