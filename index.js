@@ -1,7 +1,9 @@
 'use strict'
 
-const Pool = require('./lib/pool')
+const pool = require('./lib/pool')
+const period = require('./lib/period')
 
 module.exports = {
-  Pool
+  pool,
+  period
 }
