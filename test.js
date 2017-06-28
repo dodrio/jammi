@@ -10,7 +10,7 @@ test('Pool', t => {
     '105': 1
   }
 
-  const probability = 0.1
+  const probability = 0.5
   const total = 10000
   let winCount = 0
 
@@ -22,6 +22,6 @@ test('Pool', t => {
   }
 
   const realProbability = winCount / total
-  // 0.07 is a magic number, right? ;)
-  t.true(realProbability < probability && realProbability > 0.07)
+  // 0.7 is a magic number, right? ;)
+  t.true(realProbability < probability && realProbability > probability * 0.7)
 })
