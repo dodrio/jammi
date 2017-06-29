@@ -13,7 +13,7 @@
     "node": ">=6"
   },
   "scripts": {
-    "test": "standard && ava -T 2m"
+    "test": "standard && ava -T 2m -v"
   },
   "files": [
     "index.js"
@@ -21,7 +21,9 @@
   "keywords": [
     ""
   ],
-  "dependencies": {},
+  "dependencies": {
+    "seedrandom": "^2.4.3"
+  },
   "devDependencies": {
     "ava": "^0.19.1",
     "sleep": "^5.1.1",
