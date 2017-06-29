@@ -64,28 +64,43 @@ test('pool', t => {
 })
 
 test('period', t => {
-  const prizes = {
-    '101': {
+  function findIndexById (array, id) {
+    for (const [ index, item ] of Object.entries(array)) {
+      if (item.id === id) {
+        return index
+      }
+    }
+
+    throw new Error('invalid id')
+  }
+
+  const prizes = [
+    {
+      id: 101,
       sum: 500,
       balance: 475
     },
-    '102': {
+    {
+      id: 102,
       sum: 100,
       balance: 85
     },
-    '103': {
+    {
+      id: 103,
       sum: 50,
       balance: 45
     },
-    '104': {
+    {
+      id: 104,
       sum: 10,
       balance: 8
     },
-    '105': {
+    {
+      id: 105,
       sum: 1,
       balance: 1
     }
-  }
+  ]
 
   let shootIds = new Set()
   let biggestPrizeTime
@@ -98,10 +113,14 @@ test('period', t => {
   while (true) {
     jammi.period(prizes, startTime, endTime, id => {
       shootIds.add(id)
-      prizes[id].balance -= 1
+
+      const index = findIndexById(prizes, id)
+      prizes[index].balance -= 1
     })
 
-    if (prizes['105'].balance === 0) {
+    const biggestPrizeIndex = findIndexById(prizes, 105)
+    const biggestPrize = prizes[biggestPrizeIndex]
+    if (biggestPrize.balance === 0) {
       if (!biggestPrizeTime) {
         biggestPrizeTime = Date.now()
       }
@@ -118,9 +137,9 @@ test('period', t => {
   t.true(biggestPrizeTime > middleTime)
 
   // all prizes can be shooted
-  t.true(shootIds.has('101'))
-  t.true(shootIds.has('102'))
-  t.true(shootIds.has('103'))
-  t.true(shootIds.has('104'))
-  t.true(shootIds.has('105'))
+  t.true(shootIds.has(101))
+  t.true(shootIds.has(102))
+  t.true(shootIds.has(103))
+  t.true(shootIds.has(104))
+  t.true(shootIds.has(105))
 })
