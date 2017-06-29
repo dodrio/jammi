@@ -5,28 +5,33 @@ import sleep from 'sleep'
 const OFFSET = 0.01
 
 test('pool', t => {
-  const prizes = {
-    '101': {
+  const prizes = [
+    {
+      id: 101,
       sum: 500,
       balance: 475
     },
-    '102': {
+    {
+      id: 102,
       sum: 100,
       balance: 85
     },
-    '103': {
+    {
+      id: 103,
       sum: 50,
       balance: 45
     },
-    '104': {
+    {
+      id: 104,
       sum: 10,
       balance: 8
     },
-    '105': {
+    {
+      id: 105,
       sum: 1,
       balance: 1
     }
-  }
+  ]
 
   const probability = 0.5
   const total = 100000
@@ -51,11 +56,11 @@ test('pool', t => {
   t.true(realProbability < probability + OFFSET && realProbability > probability - OFFSET)
 
   // all prizes can be shooted
-  t.true(shootIds.has('101'))
-  t.true(shootIds.has('102'))
-  t.true(shootIds.has('103'))
-  t.true(shootIds.has('104'))
-  t.true(shootIds.has('105'))
+  t.true(shootIds.has(101))
+  t.true(shootIds.has(102))
+  t.true(shootIds.has(103))
+  t.true(shootIds.has(104))
+  t.true(shootIds.has(105))
 })
 
 test('period', t => {
