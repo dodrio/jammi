@@ -20,39 +20,45 @@ $ npm install jammi
 Format:
 
 ```js
-{
-  prizeId: {
+[
+  {
+    id: <id>
     sum: <sum>
     balance: <balance>
   }
-}
+]
 ```
 
 Example:
 
 ```js
-const prizes = {
-  '101': {
+const prizes = [
+  {
+    id: 101,
     sum: 500,
     balance: 475
   },
-  '102': {
+  {
+    id: 102,
     sum: 100,
     balance: 85
   },
-  '103': {
+  {
+    id: 103,
     sum: 50,
     balance: 45
   },
-  '104': {
+  {
+    id: 104,
     sum: 10,
     balance: 8
   },
-  '105': {
+  {
+    id: 105,
     sum: 1,
     balance: 1
   }
-}
+]
 ```
 
 ### jammi.pool(prizes, probability = 0.1)
