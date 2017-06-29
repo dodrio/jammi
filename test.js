@@ -1,15 +1,31 @@
 import test from 'ava'
 import jammi from '.'
+import sleep from 'sleep'
 
 const OFFSET = 0.01
 
-test('Pool', t => {
+test('pool', t => {
   const prizes = {
-    '101': 500,
-    '102': 100,
-    '103': 50,
-    '104': 10,
-    '105': 1
+    '101': {
+      sum: 500,
+      balance: 475
+    },
+    '102': {
+      sum: 100,
+      balance: 85
+    },
+    '103': {
+      sum: 50,
+      balance: 45
+    },
+    '104': {
+      sum: 10,
+      balance: 8
+    },
+    '105': {
+      sum: 1,
+      balance: 1
+    }
   }
 
   const probability = 0.5
@@ -21,7 +37,7 @@ test('Pool', t => {
   for (let i = 0; i <= total; i++) {
     loopTime = i
 
-    jammi.pool(prizes, probability, (id) => {
+    jammi.pool(prizes, probability, id => {
       shootIds.add(id)
       shoot += 1
     })
@@ -42,36 +58,64 @@ test('Pool', t => {
   t.true(shootIds.has('105'))
 })
 
-// test('Period', t => {
-//   const prizes = {
-//     '101': {
-//       sum: 500,
-//       balance: 475
-//     },
-//     '102': {
-//       sum: 100,
-//       balance: 85
-//     },
-//     '103': {
-//       sum: 50,
-//       balance: 45
-//     },
-//     '104': {
-//       sum: 10,
-//       balance: 8
-//     },
-//     '105': {
-//       sum: 1,
-//       balance: 1
-//     }
-//   }
+test('period', t => {
+  const prizes = {
+    '101': {
+      sum: 500,
+      balance: 475
+    },
+    '102': {
+      sum: 100,
+      balance: 85
+    },
+    '103': {
+      sum: 50,
+      balance: 45
+    },
+    '104': {
+      sum: 10,
+      balance: 8
+    },
+    '105': {
+      sum: 1,
+      balance: 1
+    }
+  }
 
-//   const startTime = Date.now()
-//   const endTime = Date.now() + 60 * 1000
+  let shootIds = new Set()
+  let biggestPrizeTime
 
-//   // for (let i = 0; i < 1000; i++) {
-//   //   jammi.period(prizes, startTime, endTime, 1)
-//   // }
+  // test in 10 seconds
+  const startTime = Date.now()
+  const middleTime = Date.now() + 5 * 1000
+  const endTime = Date.now() + 10 * 1000
 
-//   t.true(true)
-// })
+  while (true) {
+    jammi.period(prizes, startTime, endTime, id => {
+      shootIds.add(id)
+      prizes[id].balance -= 1
+    })
+
+    if (prizes['105'].balance === 0) {
+      if (!biggestPrizeTime) {
+        biggestPrizeTime = Date.now()
+      }
+    }
+
+    if (Date.now() > endTime) {
+      break
+    }
+
+    sleep.usleep(3000)
+  }
+
+  // biggest prize is shooted after middleTime
+  t.true(biggestPrizeTime > middleTime)
+
+  // all prizes can be shooted
+  t.true(shootIds.has('101'))
+  t.true(shootIds.has('102'))
+  t.true(shootIds.has('103'))
+  t.true(shootIds.has('104'))
+  t.true(shootIds.has('105'))
+})
