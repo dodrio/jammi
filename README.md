@@ -15,8 +15,53 @@ $ npm install jammi
 ```
 
 ## API
+### about `prizes` parameter`
 
-Read the code, no time to explain them.
+Format:
+
+```js
+{
+  prizeId: {
+    sum: <sum>
+    balance: <balance>
+  }
+}
+```
+
+Example:
+
+```js
+const prizes = {
+  '101': {
+    sum: 500,
+    balance: 475
+  },
+  '102': {
+    sum: 100,
+    balance: 85
+  },
+  '103': {
+    sum: 50,
+    balance: 45
+  },
+  '104': {
+    sum: 10,
+    balance: 8
+  },
+  '105': {
+    sum: 1,
+    balance: 1
+  }
+}
+```
+
+### jammi.pool(prizes, probability = 0.1)
+
+Return `prizeId` or `null`.
+
+### jammi.period (prizes, startTime, endTime)
+
+Return `prizeId` or `null`.
 
 * * *
 
