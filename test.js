@@ -16,13 +16,19 @@ test('Pool', t => {
   const total = 100000
   let shoot = 0
   let shootIds = new Set()
+  let loopTime = 0
 
-  for (let i = 0; i < total; i++) {
+  for (let i = 0; i <= total; i++) {
+    loopTime = i
+
     jammi.pool(prizes, probability, (id) => {
       shootIds.add(id)
       shoot += 1
     })
   }
+
+  // ensure loopTime is equal to total
+  t.true(loopTime === total)
 
   // probability is approximated with value specified by `probability`
   const realProbability = shoot / total
