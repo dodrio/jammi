@@ -15,7 +15,7 @@ $ npm install jammi
 ```
 
 ## API
-### about `prizes` parameter`
+### about `prizes` parameter
 
 Format:
 
