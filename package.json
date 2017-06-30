@@ -16,7 +16,8 @@
     "test": "standard && ava -T 2m -v"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "libs/"
   ],
   "keywords": [
     ""
