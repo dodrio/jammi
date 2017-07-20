@@ -2,58 +2,75 @@ import test from 'ava'
 import jammi from '.'
 import sleep from 'sleep'
 
-const OFFSET = 0.01
+function findIndexById (array, id) {
+  for (const [ index, item ] of Object.entries(array)) {
+    if (item.id === id) {
+      return index
+    }
+  }
 
-test('pool', t => {
+  throw new Error('invalid id')
+}
+
+test('probability', t => {
   const prizes = [
     {
       id: 101,
-      sum: 500,
-      balance: 475
+      probability: 0.01
     },
     {
       id: 102,
-      sum: 100,
-      balance: 85
+      probability: 0.05
     },
     {
       id: 103,
-      sum: 50,
-      balance: 45
+      probability: 0.15
     },
     {
       id: 104,
-      sum: 10,
-      balance: 8
+      probability: 0.25
     },
     {
       id: 105,
-      sum: 1,
-      balance: 1
+      probability: 0.35
     }
   ]
 
-  const probability = 0.5
+  const shootTime = {
+    101: 0,
+    102: 0,
+    103: 0,
+    104: 0,
+    105: 0
+  }
+
   const total = 100000
-  let shoot = 0
   let shootIds = new Set()
   let loopTime = 0
 
   for (let i = 0; i <= total; i++) {
     loopTime = i
 
-    jammi.pool(prizes, probability, id => {
+    jammi.probability(prizes, id => {
       shootIds.add(id)
-      shoot += 1
+      shootTime[id] += 1
     })
   }
 
   // ensure loopTime is equal to total
   t.true(loopTime === total)
 
-  // probability is approximated with value specified by `probability`
-  const realProbability = shoot / total
-  t.true(realProbability < probability + OFFSET && realProbability > probability - OFFSET)
+  const probabilityOffset = 0.01
+  for (const id of [101, 102, 103, 104, 105]) {
+    const index = findIndexById(prizes, id)
+    const idealProbability = prizes[index].probability
+    const realProbability = shootTime[id] / total
+
+    t.true(
+      realProbability < idealProbability + probabilityOffset &&
+        realProbability > idealProbability - probabilityOffset
+    )
+  }
 
   // all prizes can be shooted
   t.true(shootIds.has(101))
@@ -64,16 +81,6 @@ test('pool', t => {
 })
 
 test('period', t => {
-  function findIndexById (array, id) {
-    for (const [ index, item ] of Object.entries(array)) {
-      if (item.id === id) {
-        return index
-      }
-    }
-
-    throw new Error('invalid id')
-  }
-
   const prizes = [
     {
       id: 101,
