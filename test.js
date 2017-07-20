@@ -60,6 +60,7 @@ test('probability', t => {
   // ensure loopTime is equal to total
   t.true(loopTime === total)
 
+  // ensure probability is accurate
   const probabilityOffset = 0.01
   for (const id of [101, 102, 103, 104, 105]) {
     const index = findIndexById(prizes, id)
