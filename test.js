@@ -81,7 +81,7 @@ test('probability', t => {
   t.true(shootIds.has(105))
 })
 
-test('period', t => {
+test('pool', t => {
   const prizes = [
     {
       id: 101,

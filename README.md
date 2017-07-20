@@ -15,60 +15,62 @@ $ npm install jammi
 ```
 
 ## API
-### about `prizes` parameter
-
-Format:
+### jammi.probability(prizes)
+The most common method with setting probability.
++ prizes:
 
 ```js
 [
   {
-    id: <id>
-    sum: <sum>
-    balance: <balance>
+    id: '61f55251-3b9c-498e-bbbe-c730de62a38d' // id of prize
+    probability: 0.35 // probability of prize
   }
+
+  ...
 ]
 ```
 
-Example:
+Return `id` or `null`.
+
+### jammi.pool(prizes)
+Prize are threw into a imaginary pool. Every can get a prize when his / her hand reach the pool.
+
++ prizes:
 
 ```js
-const prizes = [
+[
   {
-    id: 101,
-    sum: 500,
-    balance: 475
-  },
-  {
-    id: 102,
-    sum: 100,
-    balance: 85
-  },
-  {
-    id: 103,
-    sum: 50,
-    balance: 45
-  },
-  {
-    id: 104,
-    sum: 10,
-    balance: 8
-  },
-  {
-    id: 105,
-    sum: 1,
-    balance: 1
+    id: '61f55251-3b9c-498e-bbbe-c730de62a38d' // id of prize
+    balance: 124 // balance of prize
   }
+
+  ...
 ]
 ```
 
-### jammi.pool(prizes, probability = 0.1)
-
-Return `prizeId` or `null`.
+Return `id` or `null`.
 
 ### jammi.period (prizes, startTime, endTime)
+Prizes are distributed on timeline between `startTime` to `endTime`. This method gains best effect of marketing.
 
-Return `prizeId` or `null`.
++ `prizes`:
+
+```js
+[
+  {
+    id: '61f55251-3b9c-498e-bbbe-c730de62a38d' // id of prize
+    sum: 200 // sum of prize, including those which have been issued
+    balance: 124 // balance of prize
+  }
+  ...
+]
+```
+
++ `startTime`: the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
++ `endTime`:  the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
+
+Return `id` or `null`.
 
 * * *
 
-<p align="center">Made without ❤ by <a href="http://index.m31271n.com">m31271n</a></p>
+<p align="center">Made with ❤ by <a href="http://index.m31271n.com">m31271n</a></p>
