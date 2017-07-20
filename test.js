@@ -85,6 +85,50 @@ test('period', t => {
   const prizes = [
     {
       id: 101,
+      balance: 475
+    },
+    {
+      id: 102,
+      balance: 85
+    },
+    {
+      id: 103,
+      balance: 45
+    },
+    {
+      id: 104,
+      balance: 8
+    },
+    {
+      id: 105,
+      balance: 1
+    }
+  ]
+
+  const total = 614
+  let shootIds = new Set()
+  let shootTime = 0
+  let loopTime = 0
+
+  for (let i = 0; i < total; i++) {
+    loopTime += 1
+
+    jammi.pool(prizes, id => {
+      shootIds.add(id)
+      shootTime += 1
+    })
+  }
+
+  // ensure all the prizes is selected,
+  // because this is a pool lottery
+  t.true(loopTime === total)
+  t.true(loopTime === shootTime)
+})
+
+test('period', t => {
+  const prizes = [
+    {
+      id: 101,
       sum: 500,
       balance: 475
     },
