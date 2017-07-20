@@ -182,7 +182,7 @@ test('period', t => {
       break
     }
 
-    sleep.usleep(3000)
+    sleep.usleep(300)
   }
 
   // biggest prize is shooted after middleTime
